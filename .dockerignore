@@ -1,0 +1,22 @@
+# Ignore folders that do not need to be sent to Docker build context
+node_modules
+dist
+.git
+.yarn
+__pycache__
+
+# Ignore editor/project files
+.vscode
+.idea
+
+# Ignore unnecessary files that increase build context size
+*.log
+*.env.local
+*.env.development
+*.DS_Store
+npm-debug.log
+
+# Do NOT ignore critical build/config files:
+# Dockerfile
+# nginx.conf.template
+# docker-entrypoint.sh

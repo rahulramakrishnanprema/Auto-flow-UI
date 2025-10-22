@@ -9,10 +9,10 @@ RUN npm run build
 # Stage 2: Serve with NGINX
 FROM nginx:alpine
 
-# Install envsubst (gettext)
+# Install envsubst for variable substitution
 RUN apk add --no-cache gettext
 
-# Remove default config and copy template
+# Remove default NGINX config and add template
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
 
@@ -23,11 +23,13 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-# Expose port and set health check
+# Expose the port Cloud Run expects
 EXPOSE 8080
+
+# Health check to wait for container startup
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
   CMD wget --quiet --tries=1 --spider http://localhost:8080/ || exit 1
 
-# Use your entrypoint and start NGINX
+# Use the entrypoint script to generate configs, then start NGINX
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]

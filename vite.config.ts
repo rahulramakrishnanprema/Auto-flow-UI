@@ -31,7 +31,7 @@ export default defineConfig({
     }
   },
 
-  // Environment variable prefix
+    // Environment variable prefix
   envPrefix: 'VITE_',
 
   optimizeDeps: {

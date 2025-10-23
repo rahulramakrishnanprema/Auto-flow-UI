@@ -1,9 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-
 export default defineConfig({
   plugins: [react()],
-
   // Build configuration
   build: {
     outDir: 'dist',
@@ -17,7 +15,6 @@ export default defineConfig({
       }
     }
   },
-
   // Development server config (local only)
   server: {
     port: 5173,
@@ -30,10 +27,8 @@ export default defineConfig({
       }
     }
   },
-
-    // Environment variable prefix
+  // Environment variable prefix
   envPrefix: 'VITE_',
-
   optimizeDeps: {
     exclude: ['lucide-react']
   }
